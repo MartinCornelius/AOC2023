@@ -1,4 +1,4 @@
-file = open("sample.txt", "r")
+file = open("input.txt", "r")
 lines = file.read().split("\n")
 
 rules = {"red": 12, "green": 13, "blue": 14}
@@ -16,14 +16,18 @@ for line in lines:
         sub = sub.strip().split(",")
         for draw in sub:
             balls = draw.strip().split(" ")
-            if rules[balls[1]] < int(balls[0]): possible = False
-            totals[balls[1]] += int(balls[0])
+            if int(balls[0]) > totals[balls[1]]:
+                totals[balls[1]] = int(balls[0])
 
-    if possible:
-        possible_games.append(game_id)        
+    print(totals)
+    answer = 1
+    for total in totals:
+        answer *= totals[total]
+
+    possible_games.append(answer)
 
 result = 0
-for x in possible_games:
-    result += int(x)
-
+for res in possible_games:
+    result += res
 print(result)
+
