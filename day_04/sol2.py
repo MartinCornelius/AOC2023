@@ -3,8 +3,11 @@ with open("input.txt", "r") as f:
     lines = [entry.strip() for entry in lines]
 
 result = 0
+scratch_cards = []
 for line in lines:
-    points = 0
+    counter = 0
+    game_id = line.split(":")[0].strip().split(" ")
+    game_id = game_id[len(game_id) - 1]
     game = line.split(":")[1].strip().split("|")
     game = [entry.strip() for entry in game]
 
@@ -18,12 +21,13 @@ for line in lines:
         if x == "": win_nums.remove(x)
     win_nums = [int(entry) for entry in win_nums]
 
-    for x in win_nums:
-        if x in my_nums:
-            if points == 0:
-                points += 1
-            elif points > 0:
-                points *= 2
+    for num in my_nums:
+        if num in win_nums:
+            counter += 1
 
-    result += points
-print(result)
+    scratch_cards.append(game_id)
+    for y in range(scratch_cards.count(game_id)):
+        for x in range(counter):
+            scratch_cards.append(str(int(game_id) + 1 + x))
+
+print("result:", len(scratch_cards))
