@@ -1,3 +1,5 @@
+import time as timer
+
 file = open("input.txt", "r")
 lines = file.read().split("\n")
 
@@ -14,6 +16,9 @@ for dis in distances:
 distances = [int(d)]
 
 results = []
+
+start_time = timer.time()
+
 for x in range(len(times)):
     counter = 0
     for i in range(times[x] + 1):
@@ -26,3 +31,4 @@ result = 1
 for res in results:
     result *= res
 print("RESULT:", result)
+print(f"Time: {timer.time() - start_time:.2f} seconds")
