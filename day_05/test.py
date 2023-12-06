@@ -1,7 +1,7 @@
 import math
 import time
 
-file = open("input.txt", "r")
+file = open("sample.txt", "r")
 lines = file.read().split("\n\n")
 lines = [entry.strip() for entry in lines]
 
@@ -22,8 +22,8 @@ def map_ranges(block):
 
 def find_range(mapping, seed):
     for x in mapping:
-        if x[0][0] <= seed and x[0][1] > seed:
-            return x[1][0] + (seed - x[0][0])
+        if x[0][0] <= seed[0]:
+            print("in range")
 
 
 # Mappings
@@ -37,6 +37,7 @@ humid_loc = map_ranges(lines[1:][6].split("\n")[1:])
 
 
 def solve(seed):
+    print(seed)
     new_seed = find_range(seed_soil, seed) or seed_ranges[0][0]
     new_seed = find_range(soil_fertil, new_seed) or new_seed
     new_seed = find_range(fertil_water, new_seed) or new_seed
@@ -48,12 +49,18 @@ def solve(seed):
     return new_seed
 
 
+print(solve(seed_ranges[0]))
+
+"""
 result = math.inf
 start_time = time.time()
 for x in range(0, len(seeds) - 1, 2):
     print("look for range", seeds[x])
     for y in range(int(seeds[x + 1])):
         result = min(result, solve(int(seeds[x])+y))
-
+        if y % 10000 == 0:
+            left = int(seeds[0]) + int(seeds[1]) - y
+            print("left", left)
 print(result)
 print(f"Time: {time.time() - start_time:.2f} seconds")
+"""

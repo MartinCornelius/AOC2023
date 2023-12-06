@@ -1,9 +1,12 @@
 import math
+import time
+
 file = open("input.txt", "r")
 lines = file.read().split("\n\n")
 lines = [entry.strip() for entry in lines]
 
 seeds = lines[0].split()[1:]
+
 
 def solve(seed):
     for line in lines[1].split("\n")[1:]:
@@ -19,7 +22,7 @@ def solve(seed):
         if int(seed) in range(int(_fertil), int(_fertil) + int(_range)):
             seed = int(_soil) + int(seed) - int(_fertil)
             break
-            
+
     for line in lines[3].split("\n")[1:]:
         _fertil, _water, _range = line.split()
 
@@ -57,9 +60,11 @@ def solve(seed):
 
     return seed
 
+
 result = math.inf
+start_time = time.time()
 for seed in seeds:
     print("seed", seed)
     result = min(result, solve(seed))
 print(result)
-
+print(f"Time: {time.time() - start_time:.2f} seconds")
