@@ -1,8 +1,4 @@
-import functools
 import re
-import sys
-
-sys.setrecursionlimit(10**7)
 
 file = open("input.txt")
 lines = file.read().splitlines()
