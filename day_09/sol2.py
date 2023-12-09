@@ -10,23 +10,22 @@ def generate_new_seq(seq):
 
 
 def extrapolate(history):
-    history[len(history)-1].append(0)
-    tmp = history[-1][-1]
+    history[-1] = [0] + history[-1]
+    tmp = history[-1][0]
     for x in range(len(history)-2, -1, -1):
-        num = history[x][-1] + tmp
+        num = history[x][0] - tmp
         tmp = num
-        history[x].append(num)
+        history[x] = [num] + history[x]
 
 
 result = 0
 for line in lines:
     history = []
     history.append(list(map(int, line.split())))
-
     while [idx for idx, val in enumerate(history[len(history)-1]) if val != 0]:
         history.append(generate_new_seq(history[len(history)-1]))
 
     extrapolate(history)
-    result += history[0][-1]
+    result += history[0][0]
 
 print(result)
